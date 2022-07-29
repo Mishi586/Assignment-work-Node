@@ -45,7 +45,7 @@ class LinkedList{
   {
       return (head==NULL);
   }
-  void insertATBeginning(int val)
+  void insertAtBeginning(int val)
   {
       if(isEmpty())
       {
@@ -73,59 +73,65 @@ class LinkedList{
          head=t;*/
         }
   }
-   /*To delete the last node of a linked list, find the second last node and make the next pointer of that node null. */
- int get1stElement()
+   
+ void get1stElement()
  {
      cout<<"\nPrinting 1st element:"<<endl;
-     return (head->getData()); 
+     cout<<(head->getData()); 
  }
- int getLastElement(){
-    while(head!=NULL){
-        head=head->getNext();
-        if(head->getNext()==NULL){
-            return (head->getData());
+ void getLastElement(){
+    if(head!=NULL){
+        while(head->getNext()!=NULL){
+            head=head->getNext();
         }
+        
     }
+    cout<<head->getData();
 }
  
  void printAllElements()
-{
-    Node* temp;
+{   
+    if(!isEmpty()){
+    Node* temp=head;
     while (temp != NULL) {
-        cout << temp->getData() << " ";
+        cout << temp->getData() <<"-->";
         temp = temp->getNext();
     }
 }
+}
 
-int getLength()
+void getLength()
 {
-    if(isEmpty())
+    if(!isEmpty())
     {
-        int count=0;
+        int i=0;
         Node *temp=head;
         while(temp!=NULL)
         {
             temp=temp->getNext();
-            count++;
+            i++;
         }
-        return count;
+        cout<<i;
     }
 }   
 
   void insertNodeAtEnd(int val)
 {
     Node *t1 = new Node(val);
-    if (head == NULL) {
-        head = t1;
-        return;
-    }
-  
-    Node *temp = head;
-    while (temp->getNext() != NULL) {
-        temp = temp->getNext();
-    }
-    t1=temp->getNext();
+   if(isEmpty()){
+       head=t1;
+   }
+   else
+   {
+     Node *temp=head;
+     while(temp->getNext()!=NULL)
+     {
+         temp=temp->getNext();
+     }
+     temp->setNext(t1);
+   }
 }
+/*To delete the last node of a linked list, find the second last node and make the next pointer of that node null. */
   void removeFromLast()
   {
       Node *t1=head; //t1=head; it will move to next nodes to reach last node
@@ -140,21 +146,28 @@ int getLength()
   }
 };
 int main() {
-   LinkedList l1,l2;
-   cout<<l1.isEmpty();//returning true 1 
-  
-  l1.insertATBeginning(35);
-  l2.insertATBeginning(22);
-  l1.insertATBeginning(60);
-   l2.insertATBeginning(6);
+   LinkedList l1;
+  cout<<l1.isEmpty();//returning true 1 
+  cout<<endl;
+  l1.insertAtBeginning(22);
+  l1.insertAtBeginning(28);
+  l1.insertAtBeginning(10);
+  l1.insertAtBeginning(40);
+  l1.insertAtBeginning(20);
+  l1.getLength();//5
+  cout<<endl;
    cout<<l1.isEmpty();
-   l1.get1stElement();
-   cout<<"Last Element is:"<<endl;
-   l1.getLastElement();
-   l2.getLength();
-  // cout<<"ALL Nodes in linked list are:"<<endl;
+   cout<<endl;
    l1.printAllElements();
-   
-
-    return 0;
+  l1.removeFromBegin();
+   l1.get1stElement();
+   cout<<"\nLast Element is:"<<endl;
+   l1.getLastElement();
+   l1.insertNodeAtEnd(70);
+   l1.insertNodeAtEnd(60);
+   cout<<endl;
+   l1.getLength();
+   cout<<endl;
+   l1.removeFromLast();
+   return 0;
 }
